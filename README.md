@@ -14,3 +14,16 @@ Run in terminal: `./create_venv.sh [OPTIONAL_DIR_NAME]`
 
 If `DIR_NAME` not supplied or already exists, prompt will appear
 
+## Python scripts
+### - `name.py`:
+**Description:**
+
+
+**Usage:**
+
+## R scripts
+### - `name.r`:
+**Description:**
+
+
+**Usage:**

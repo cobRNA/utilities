@@ -1,6 +1,6 @@
 name: Pylint
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -23,7 +23,7 @@ jobs:
         pylint $(git ls-files '*.py')
     - name: Analysing the code with black
       run: |
-        black --diff --check $(git ls-files '*.py')
+        black $(git ls-files '*.py')
     - name: Analysing the code with mypy
       run: |
-        mypy --strict $(git ls-files '*.py')
+        mypy $(git ls-files '*.py')

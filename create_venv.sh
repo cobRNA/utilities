@@ -29,14 +29,14 @@ done
 
 if !(test -d $dirname); then
   echo "New directory created."
-  mkdir $dirname
-  cd $dirname
-  python3.11 -m venv .venv
-  source .venv/bin/activate
+  #mkdir $dirname
+  #cd $dirname
+  python3.11 -m venv $dirname
+  source $dirname/bin/activate
   python -m pip install --upgrade pip
   python -m pip install pip-tools black pylint mypy
   python -m pip install notebook
-  python -m ipykernel install --user --name=.venv
+  python -m ipykernel install --user --name=$dirname
 fi
 
 echo "Press [ENTER] to exit."

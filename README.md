@@ -1,9 +1,13 @@
 # Utilities
+
 Short shell, python and R scripts to get the work done.
 
 # Content
+
 ## Bash scripts
+
 ### - `create_venv.sh`:
+
 **Description:**
 Automates creation of Python3.x virtual environment with preinstalled basic modules.
 
@@ -15,7 +19,9 @@ Run in terminal: `./create_venv.sh [OPTIONAL_DIR_NAME]`
 If `DIR_NAME` not supplied or already exists, prompt will appear
 
 ## Python scripts
-### - `removeFakes.py`:
+
+### - `remove_fakes.py`:
+
 **Description:**
 Created to remove fakeExons after anchored merging procedure.
 Input:
@@ -27,8 +33,8 @@ fakeExonsToRemove.gff - file contating fake exons extracted just after anchoring
 Run in terminal:
 `./removeFakes.py -t tmerged+fakeExons.gtf -f fakeExonsToRemove.gff | sort -k1,1 -k4,4n -k5,5n | gzip > ExonsWithoutFakes.gz`
 
+### - `targets_to_tsv.py`:
 
-### - `targetsToTsv.py`:
 **Description:**
 Read targets from STDIN and converts it to tsv.
 Crafted for the Hv3_CLS3_targetDesign.gtf.gz analysis in R.
@@ -37,10 +43,10 @@ Crafted for the Hv3_CLS3_targetDesign.gtf.gz analysis in R.
 Run in terminal:
 `zcat Hv3_CLS3_targetDesign.gtf.gz | ./targetsToTsv.py - > targets.tsv`
 
-
 ## R scripts
-### - `name.r`:
-**Description:**
 
+### - `name.r`:
+
+**Description:**
 
 **Usage:**

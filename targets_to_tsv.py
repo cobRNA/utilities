@@ -24,8 +24,8 @@ HEADER = [
 sys.stdout.write("\t".join(HEADER) + "\n")
 
 # Create tsv line
-for input in sys.stdin:
-    line = input.split("\t")
+for input_line in sys.stdin:
+    line = input_line.split("\t")
     target_ids = line[8].split(" ")[1].replace('"', "").replace(";", "")
     target_set = line[8].split(" ")[3].replace('"', "").replace(";", "")
     target_category = line[8].split(" ")[5].replace('"', "").replace(";", "")

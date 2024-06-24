@@ -16,7 +16,19 @@ import argparse
 
 
 def remove_fakes(tmerged, fakes) -> set:
-    # Remove fake exons
+    """
+    Read chr|start|end|strand exon info from tmerge set.
+    If exon does not exist in fakes set, add it
+    to new without_fakes set.
+    After completion, return resulitng set.
+
+    Args:
+    tmerged (set): exons from anchored merging procedure. Contains fake exons.
+    fakes (set): fake exons extracted after anchoring.
+
+    Returns:
+    set: exons from tmerged that were not common with fakes.
+    """
     without_fakes = set()
 
     for transcript in tmerged:
@@ -33,6 +45,10 @@ def remove_fakes(tmerged, fakes) -> set:
 
 
 def main() -> None:
+    """
+    Handles arguments, loads data into tmerged and fakes data sets.
+    Returns exons set not containing fake exons to STDOUT.
+    """
     # Handle comandline arguments
     parser = argparse.ArgumentParser(
         description="Removes fakeExons from tmergedOutput file.",
@@ -56,17 +72,18 @@ def main() -> None:
     config = vars(args)
 
     # Open tmergedOutput file and load into memory
+    # Set comprehension is used to:
+    # - removed empty lines: "if x" part
+    # - create fakes hash using only necessary features from input
     with open(config["tmergedOutput"], "r", encoding="utf-8") as file:
-        tmerged = set([x for x in file.read().split(sep="\n") if x])
+        tmerged = {x for x in file.read().split(sep="\n") if x}
     # Open fakeExons file and load into memory
     with open(config["fakeExons"], "r", encoding="utf-8") as file:
-        fakes = set(
-            [
-                x.split()[0] + x.split()[3] + x.split()[4] + x.split()[6]
-                for x in file.read().split(sep="\n")
-                if x
-            ]
-        )
+        fakes = {
+            x.split()[0] + x.split()[3] + x.split()[4] + x.split()[6]
+            for x in file.read().split(sep="\n")
+            if x
+        }
 
     # Remove fakeExons
     clean_set_of_exons = remove_fakes(tmerged, fakes)

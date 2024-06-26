@@ -6,8 +6,7 @@
 
 int main(int argc, char **argv)
 {
-
-    // Declara variables
+    // Declare variables
     char line[MAX_LINE_LENGTH];
 
     // Check if tags are correctly supplied
@@ -46,7 +45,7 @@ int main(int argc, char **argv)
         token = strtok(NULL, ",");
     }
 
-    // Read line from stdin. Read till EOF
+    // Read lines from stdin until EOF
     while (fgets(line, sizeof(line), stdin))
     {
         if (line[0] != '\0')
@@ -58,18 +57,18 @@ int main(int argc, char **argv)
                 line[len - 1] = '\0';
             }
 
-            // Split the line by tabs
+            // Split the line by tabs to find the 9th field
             char *features;
             int field_count = 0;
 
-            // Tokenize the line
+            // Tokenize the line by tabs
             features = strtok(line, "\t");
             while (features != NULL)
             {
                 field_count++;
                 if (field_count == 9)
                 {
-                    // Exit the loop
+                    // We have found the 9th field, so break
                     break;
                 }
                 features = strtok(NULL, "\t");
@@ -82,36 +81,51 @@ int main(int argc, char **argv)
                 return 1;
             }
 
-            // Search for gtf tags
+            // Search for GTF tags within the 9th field
             for (int j = 0; j < count; j++)
             {
-                char *prefix = strcat(tags[j], " ");
-                char *suffix = ";";
+                char *prefix = malloc(strlen(tags[j]) + 3); // Allocate memory for prefix
+                if (prefix == NULL)
+                {
+                    perror("malloc");
+                    return 1;
+                }
+                sprintf(prefix, "%s \"", tags[j]); // Create the prefix string
+
+                char *suffix = "\";";
 
                 // Find the start of the prefix
                 char *start = strstr(features, prefix);
-                if (start == NULL)
+                if (start != NULL)
                 {
-                    fprintf(stderr, "Prefix not found in the input.\n");
-                }
-                start += strlen(prefix); // Move past the prefix
+                    start += strlen(prefix); // Move past the prefix
 
-                // Find the end of the suffix
-                char *end = strstr(start, suffix);
-                if (end == NULL)
-                {
-                    fprintf(stderr, "Suffix not found in the input.\n");
-                }
-                *end = '\0'; // Null-terminate the substring
+                    // Find the end of the suffix
+                    char *end = strstr(start, suffix);
+                    if (end != NULL)
+                    {
+                        *end = '\0'; // Null-terminate the substring
 
-                // Print the extracted fragment
-                printf("%s", start);
-                if (j < count - 1)
-                {
-                    printf("\t");
-                }
+                        // Print the extracted fragment
+                        printf("%s", start);
+                        if (j < count - 1)
+                        {
+                            printf("\t");
                         }
-            // Print new line char
+                    }
+                    else
+                    {
+                        fprintf(stderr, "Suffix not found for tag '%s' in the input.\n", tags[j]);
+                    }
+                }
+                else
+                {
+                    fprintf(stderr, "Prefix '%s' not found in the input.\n", prefix);
+                }
+
+                free(prefix); // Free the allocated memory for prefix
+            }
+            // Print new line character
             printf("\n");
         }
     }

@@ -46,9 +46,9 @@ Run in terminal:
 
 ## Perl scripts
 
-### - `simplifyGencodeTypes.v27_M16.pl`:
+### - `simplifyGencodeGeneTypes.v27_M16.pl`:
 
-### - `simplifyGencodeTypes.v43_M32.pl`:
+### - `simplifyGencodeGeneTypes.v43_M32.pl`:
 
 **Description:**
 Source: https://github.com/julienlag/utils/blob/c57b06f99af92e60a89f3b1ad7a8a7ec02fdc475/simplifyGencodeGeneTypes.pl

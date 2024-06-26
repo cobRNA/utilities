@@ -24,7 +24,8 @@ If `DIR_NAME` not supplied or already exists, prompt will appear
 
 **Description:**
 Created to remove fakeExons after anchored merging procedure.
-Input:
+
+**Input:**
 tmerged+fakeExons.gtf - raw file created by tmerging anchored transcripts
 fakeExonsToRemove.gff - file contating fake exons extracted just after anchoring by:
 `cat anchored_transcripts.gff | grep 'fakeExon' > fakeExonsToRemove.gff`
@@ -42,6 +43,23 @@ Crafted for the Hv3_CLS3_targetDesign.gtf.gz analysis in R.
 **Usage:**
 Run in terminal:
 `zcat Hv3_CLS3_targetDesign.gtf.gz | ./targetsToTsv.py - > targets.tsv`
+
+## Perl scripts
+
+### - `simplifyGencodeTypes.v27_M16.pl`:
+
+### - `simplifyGencodeTypes.v43_M32.pl`:
+
+**Description:**
+Source: https://github.com/julienlag/utils/blob/c57b06f99af92e60a89f3b1ad7a8a7ec02fdc475/simplifyGencodeGeneTypes.pl
+Modified to work with Gencode.v27 / M16 and .v43 / M32 gene types respectively.
+
+**Input:**
+Raw Gencode annotation.
+
+**Usage:**
+Run in terminal:
+`zcat gencode.v27.annotation.gtf.gz | simplifyGencodeTypes.v27_M16 | gzip > gencode.v27.annotation.simplified.gtf.gz`
 
 ## R scripts
 

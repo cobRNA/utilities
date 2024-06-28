@@ -55,16 +55,23 @@ def main() -> None:
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument(
-        "-t",
+        "-a",
         "--tmergedOutput",
-        help="path to tmergedOutput file",
+        help="path to tmergedOutput file containing all exons",
         default=None,
     )
 
     parser.add_argument(
         "-f",
         "--fakeExons",
-        help="path to fakeExons file",
+        help="path to fakeExons file containing only fake exons",
+        default=None,
+    )
+
+    parser.add_argument(
+        "-t",
+        "--trueExons",
+        help="path to trueExons file containing only true exons",
         default=None,
     )
 
@@ -84,9 +91,19 @@ def main() -> None:
             for x in file.read().split(sep="\n")
             if x
         }
+    # Open trueExons file and load into memory
+    with open(config["trueExons"], "r", encoding="utf-8") as file:
+        trues = {
+            x.split()[0] + x.split()[3] + x.split()[4] + x.split()[6]
+            for x in file.read().split(sep="\n")
+            if x
+        }
+
+    # Create true_fakes set - in rare situations fake exons can align with short true exons
+    true_fakes = fakes - trues
 
     # Remove fakeExons
-    clean_set_of_exons = remove_fakes(tmerged, fakes)
+    clean_set_of_exons = remove_fakes(tmerged=tmerged, fakes=true_fakes)
 
     # Return exons without fakes
     sys.stdout.write("\n".join(clean_set_of_exons))

@@ -1,0 +1,36 @@
+# Load libraries
+```{r}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(dplyr,
+               ggplot2)
+```
+
+# Load data
+```{r}
+df <- read.table("path_to_file.bed", header=F, sep="\t") %>%
+  rename(chr="V1",
+         start="V2",
+         end="V3",
+         tx_id="V4",
+         score="V5",
+         strand="V6")
+# preview data
+df
+```
+
+# Process and analyze data
+```{r}
+
+target_chr <- c("chr1", "chr2")  # Type chromosomes you want to keep
+
+df %>% 
+  filter(chr %in% target_chr) %>%  # Remove chr other than specified above
+  select(tx_id) %>%  # Select only tx_ids column
+  unique() %>%  # Remove duplicated tx_ids
+  count()  # Count uniq tx_ids
+```
+
+
+
+
+

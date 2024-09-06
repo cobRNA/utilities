@@ -24,15 +24,20 @@ If `DIR_NAME` not supplied or already exists, prompt will appear
 
 **Description:**
 Created to remove fakeExons after anchored merging procedure.
+FakeExons are identified by hash created from concatenation of chr,start,end,strand.
+Rarely, fakeExons can align with short trueExon of different transcript.
+To avoid removing them this,
 
 **Input:**
 tmerged+fakeExons.gtf - raw file created by tmerging anchored transcripts
 fakeExonsToRemove.gff - file contating fake exons extracted just after anchoring by:
-`cat anchored_transcripts.gff | grep 'fakeExon' > fakeExonsToRemove.gff`
+`cat anchored_transcripts.gff | grep -wF 'fakeExon' > fakeExonsToRemove.gff`
+trueExons.gff - file containing non-fake exons extracted just after anchoring by:
+`cat anchored_transcripts.gff | grep -wFv 'fakeExon' > trueExons.gff`
 
 **Usage:**
 Run in terminal:
-`./removeFakes.py -t tmerged+fakeExons.gtf -f fakeExonsToRemove.gff | sort -k1,1 -k4,4n -k5,5n | gzip > ExonsWithoutFakes.gz`
+`./removeFakes.py -a tmerged+fakeExons.gtf -f fakeExonsToRemove.gff -t trueExons.gff | sort -k1,1 -k4,4n -k5,5n | gzip > ExonsWithoutFakes.gz`
 
 ### - `targets_to_tsv.py`:
 

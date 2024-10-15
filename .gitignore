@@ -1,2 +1,4 @@
 .venv
 *.o
+extract_gtf_tags.c
+extract_gtf_tags_robocze.c

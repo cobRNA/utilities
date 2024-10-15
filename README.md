@@ -18,6 +18,18 @@ Run in terminal: `./create_venv.sh [OPTIONAL_DIR_NAME]`
 
 If `DIR_NAME` not supplied or already exists, prompt will appear
 
+### - `shuffle_gtf.v1.sh`
+
+**Description:**
+Reads content of gtf file from STDIN and shuffles its content.
+Before use adjust GENOME_FILE and SEED(optional) variables.
+
+**Usage:**
+Run in terminal: `cat input.gtf | ./shuffle_gtf.v1.sh - > output.gtf`
+
+**Author:**
+Rory Johnson
+
 ## Python scripts
 
 ### - `remove_fakes.py`:

@@ -76,7 +76,7 @@ Raw Gencode annotation.
 
 **Usage:**
 Run in terminal:
-`zcat gencode.v27.annotation.gtf.gz | simplifyGencodeTypes.v27_M16 | gzip > gencode.v27.annotation.simplified.gtf.gz`
+`zcat gencode.v27.annotation.gtf.gz | ./simplifyGencodeTypes.v27_M16 - | gzip > gencode.v27.annotation.simplified.gtf.gz`
 
 ## R scripts
 
